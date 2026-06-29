@@ -28,7 +28,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 
     <style>
-        .premium-transition {
+.premium-transition {
             transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
         @keyframes slow-spin {
@@ -55,7 +55,7 @@
             height: 68px;
             padding: 0;
             font-family: inherit;
-            font-size: 0.8125rem;
+            font-size: 1rem;
             font-weight: 800;
             letter-spacing: 0.02em;
             overflow: hidden;
@@ -114,6 +114,33 @@
             animation: border-flow 4s linear infinite;
         }
 
+        /* ── Hero Logo Responsive ── */
+        .hero-logo-img { height: 110px; }
+        @media (min-width: 640px)  { .hero-logo-img { height: 160px; } }
+        @media (min-width: 1024px) { .hero-logo-img { height: 230px; } }
+        .hero-ile-span { margin-left: 0; margin-right: 0.15em; }
+        @media (min-width: 768px)  { .hero-ile-span { margin-left: -2rem; } }
+
+        /* ── Mobile Menu ── */
+        #mobile-menu {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        #mobile-menu.is-open {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .mob-nav-link {
+            position: relative;
+            font-size: 2rem;
+            font-weight: 900;
+            color: rgba(255,255,255,0.4);
+            letter-spacing: -0.02em;
+            transition: color 0.2s ease;
+        }
+        .mob-nav-link:hover { color: #fff; }
+
         /* ── Services Carousel ── */
         .services-scroll {
             scroll-snap-type: x mandatory;
@@ -150,6 +177,69 @@
             from { transform: translateY(0%); }
             to   { transform: translateY(-115%); }
         }
+
+        /* ── Hero Entrance ── */
+        @keyframes hero-enter {
+            from { opacity: 0; transform: translateY(24px); filter: blur(4px); }
+            to   { opacity: 1; transform: translateY(0);   filter: blur(0px); }
+        }
+        .hero-enter { animation: hero-enter 0.75s cubic-bezier(0.22,1,0.36,1) both; }
+        .hero-d1 { animation-delay: 0.15s; }
+        .hero-d2 { animation-delay: 0.32s; }
+        .hero-d3 { animation-delay: 0.52s; }
+        .hero-d4 { animation-delay: 0.68s; }
+
+        /* ── Scroll Reveal ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.65s cubic-bezier(0.22,1,0.36,1),
+                        transform 0.65s cubic-bezier(0.22,1,0.36,1);
+        }
+        .reveal.is-visible { opacity: 1; transform: translateY(0); }
+        .rd1 { transition-delay: 0.08s; }
+        .rd2 { transition-delay: 0.16s; }
+        .rd3 { transition-delay: 0.24s; }
+        .rd4 { transition-delay: 0.32s; }
+        .rd5 { transition-delay: 0.40s; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal { opacity: 1; transform: none; transition: none; }
+            .hero-enter { animation: none; opacity: 1; }
+        }
+
+        /* ── Text Shimmer Sweep ── */
+        .text-shimmer {
+            display: inline-block;
+            position: relative;
+        }
+        .text-shimmer::after {
+            content: attr(data-text);
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                108deg,
+                transparent 47%,
+                #ffffff 47%,
+                #ffffff 53%,
+                transparent 53%
+            );
+            background-size: 300% 100%;
+            background-repeat: no-repeat;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            pointer-events: none;
+            animation: shimmer-sweep 9.6s ease-in-out infinite;
+        }
+        @keyframes shimmer-sweep {
+            0%   { background-position: 130% center; }
+            48%  { background-position: -30% center; }
+            100% { background-position: -30% center; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .text-shimmer::after { display: none; }
+        }
     </style>
 </head>
 <body class="w-full bg-brandDark text-white antialiased font-sans overflow-x-hidden selection:bg-brandNeon selection:text-black">
@@ -175,7 +265,27 @@
             <button class="hidden md:flex items-center space-x-1 px-5 py-2.5 bg-brandNeon text-black text-xs font-bold rounded-full premium-transition hover:scale-105 active:scale-95">
                 <span>Proje Başlat</span>
             </button>
+
+            <!-- Hamburger (mobile only) -->
+            <button id="mobile-menu-btn" class="md:hidden flex flex-col gap-[5px] p-2 cursor-pointer" aria-label="Menüyü aç">
+                <span class="w-5 h-[1.5px] bg-white block transition-all duration-300"></span>
+                <span class="w-5 h-[1.5px] bg-white block transition-all duration-300"></span>
+                <span class="w-3 h-[1.5px] bg-white block transition-all duration-300"></span>
+            </button>
         </nav>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 z-[200] bg-brandDark flex flex-col items-center justify-center gap-8" aria-hidden="true">
+        <button id="mobile-menu-close" class="absolute top-8 right-8 p-2 cursor-pointer" aria-label="Kapat">
+            <svg class="w-6 h-6 text-white/60" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+        <span class="text-[10px] font-mono tracking-[0.3em] text-neutral-700 uppercase mb-2">Menü</span>
+        <a href="#hakkimizda" class="mob-nav-link">Hakkımızda</a>
+        <a href="#hizmetler"  class="mob-nav-link">Hizmetler</a>
+        <a href="#ekibimiz"   class="mob-nav-link">Ekibimiz</a>
+        <a href="#iletisim"   class="mob-nav-link">İletişim</a>
+        <a href="#iletisim"   class="mt-6 px-8 py-4 bg-brandNeon text-black text-sm font-bold rounded-full cursor-pointer">Proje Başlat</a>
     </div>
 
     <!-- =========================================================================
@@ -184,21 +294,19 @@
     <section class="w-full min-h-screen flex items-center relative pt-20" style="background:#030400;">
 
         <!-- Arka plan görseli -->
-        <div class="absolute inset-0 z-0 pointer-events-none" style="background: url('web/public/arak.png') center center / cover no-repeat;"></div>
+        <div class="absolute inset-0 z-0 pointer-events-none" style="background: url('web/public/ARKAPLAN.png') center center / cover no-repeat;"></div>
 
-        <!-- Buzlu cam katmanı -->
-        <div class="absolute inset-0 z-[1] pointer-events-none" style="background: rgba(2,4,0,0.91);"></div>
 
-        <div class="max-w-7xl mx-auto px-8 md:px-16 lg:px-24 w-full flex flex-col items-center text-center space-y-10 relative z-[2]">
-            <div class="inline-flex items-center space-x-2 px-3 py-1 bg-white/5 rounded-full border border-white/5">
+        <div class="max-w-7xl mx-auto px-4 md:px-16 lg:px-24 w-full flex flex-col items-center text-center space-y-8 md:space-y-10 relative z-[2]">
+            <div class="hero-enter inline-flex items-center space-x-2 px-3 py-1 bg-white/5 rounded-full border border-white/5">
                 <span class="text-[10px] font-bold tracking-widest uppercase font-mono text-brandNeon">Dijital Otonomi & Tasarım</span>
             </div>
 
             <!-- Logo + dönen slogan -->
-            <div class="flex flex-wrap items-center justify-center gap-x-0 gap-y-2">
-                <img src="web/public/LOGO.png" alt="SocialWave" style="height: 230px; filter: brightness(0) invert(1); flex-shrink:0;">
-                <span class="text-3xl md:text-5xl lg:text-6xl font-black tracking-tight text-white" style="margin-left:-2rem; margin-right:0.15em;"> ile</span>
-                <span id="hero-text-wrapper" style="display:inline-block; overflow:hidden; vertical-align:bottom; line-height:1.15; transition: width 0.5s cubic-bezier(0.22,1,0.36,1);">
+            <div class="hero-enter hero-d1 flex flex-wrap items-center justify-center gap-x-0 gap-y-2">
+                <img src="web/public/LOGO.png" alt="SocialWave" class="hero-logo-img" style="filter: brightness(0) invert(1); flex-shrink:0;">
+                <span class="hero-ile-span text-3xl md:text-5xl lg:text-6xl font-black tracking-tight text-white"> ile</span>
+                <span id="hero-text-wrapper" style="display:inline-block; overflow:hidden; vertical-align:bottom; line-height:1.15; padding-top:0.12em; margin-top:-0.12em; padding-bottom:0.22em; margin-bottom:-0.22em; transition: width 0.5s cubic-bezier(0.22,1,0.36,1);">
                     <span id="hero-rotating-text"
                           class="text-3xl md:text-5xl lg:text-6xl font-black tracking-tight text-brandNeon"
                           style="display:inline-block; white-space:nowrap;">
@@ -207,12 +315,12 @@
                 </span>
             </div>
 
-            <p class="text-base md:text-lg text-neutral-400 max-w-xl font-light leading-relaxed">
+            <p class="hero-enter hero-d2 text-base md:text-lg text-neutral-400 max-w-xl font-light leading-relaxed">
                 Dijital dünyada fark yaratmak bir tercih değil, zorunluluk.<br class="hidden md:block">
                 Tasarım, teknoloji ve otomasyonu tek çatıda sunuyoruz.
             </p>
 
-            <div class="flex items-center gap-4 pt-4">
+            <div class="hero-enter hero-d3 flex items-center gap-4 pt-4">
                 <button class="px-8 py-4 bg-white text-black text-xs font-bold rounded-full premium-transition hover:scale-105 active:scale-95">Bizimle Çalışın</button>
                 <a href="#hakkimizda" class="px-8 py-4 bg-transparent text-white text-xs font-bold rounded-full border border-white/10 premium-transition hover:bg-white/5">Keşfedin →</a>
             </div>
@@ -222,11 +330,11 @@
     <!-- =========================================================================
         3. BÖLÜM: HAKKIMIZDA — GENİŞLETİLMİŞ
         ========================================================================= -->
-    <section id="hakkimizda" class="w-full bg-white text-brandDark py-36 rounded-t-[48px] md:rounded-t-[80px] relative z-20 shadow-[0_-20px_50px_rgba(0,0,0,0.05)]">
-        <div class="max-w-7xl mx-auto px-8 md:px-16 lg:px-24 flex flex-col space-y-20">
+    <section id="hakkimizda" class="w-full bg-white text-brandDark py-20 md:py-36 rounded-t-[48px] md:rounded-t-[80px] relative z-20 shadow-[0_-20px_50px_rgba(0,0,0,0.05)]">
+        <div class="max-w-7xl mx-auto px-4 md:px-16 lg:px-24 flex flex-col space-y-14 md:space-y-20">
 
             <!-- Başlık -->
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-b border-black/[0.06] pb-10">
+            <div class="reveal flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-b border-black/[0.06] pb-10">
                 <div class="space-y-3">
                     <span class="text-xs font-bold tracking-widest text-neutral-400 uppercase font-mono">NEDEN SOCIALWAVE?</span>
                     <h2 class="text-3xl md:text-5xl font-black tracking-tight leading-[1.1]">Dört dikeyden<br>bir vizyon.</h2>
@@ -237,7 +345,7 @@
             </div>
 
             <!-- Stats Marquee Şeridi -->
-            <div class="w-full bg-brandDark rounded-2xl overflow-hidden py-5 relative select-none">
+            <div class="reveal rd1 w-full bg-brandDark rounded-2xl overflow-hidden py-5 relative select-none">
                 <!-- Kenar soluklaştırma -->
                 <div class="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-brandDark to-transparent z-10 pointer-events-none"></div>
                 <div class="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-brandDark to-transparent z-10 pointer-events-none"></div>
@@ -280,11 +388,11 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
                 <!-- Kart 1 — AI Otomasyon (Vurgulu) -->
-                <div class="group md:col-span-2 p-10 bg-brandDark text-white rounded-[32px] flex flex-col justify-between min-h-[280px] premium-transition hover:shadow-[0_30px_60px_rgba(0,0,0,0.12)] hover:-translate-y-1 relative overflow-hidden cursor-pointer">
+                <div class="reveal rd1 group md:col-span-2 p-10 bg-brandDark text-white rounded-[32px] flex flex-col justify-between min-h-[280px] premium-transition hover:shadow-[0_30px_60px_rgba(0,0,0,0.12)] hover:-translate-y-1 relative overflow-hidden cursor-pointer">
                     <div class="absolute top-0 right-0 w-48 h-48 bg-brandNeon/5 rounded-full blur-[60px] pointer-events-none"></div>
                     <div class="flex items-start justify-between">
                         <span class="text-[10px] font-bold tracking-widest text-neutral-500 font-mono">01 / AI OTOMASYON</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-brandNeon premium-transition group-hover:rotate-90" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3c.132 4.962 4.038 8.868 9 9-.132 4.962-4.038 8.868-9 9-.132-4.962-4.038-8.868-9-9 .132-4.962 4.038-8.868 9-9z"/></svg>
+                        <span class="text-brandNeon text-base inline-block premium-transition group-hover:rotate-90" aria-hidden="true">✦</span>
                     </div>
                     <div class="space-y-3 relative z-10">
                         <h3 class="text-xl font-bold tracking-tight">Yapay Zeka Otomasyonu</h3>
@@ -293,11 +401,11 @@
                 </div>
 
                 <!-- Kart 2 — Grafik Tasarım -->
-                <div class="group p-10 bg-brandLight rounded-[32px] flex flex-col justify-between min-h-[280px] premium-transition hover:shadow-[0_30px_60px_rgba(0,0,0,0.04)] hover:-translate-y-1 cursor-pointer">
+                <div class="reveal rd2 group p-10 bg-brandLight rounded-[32px] flex flex-col justify-between min-h-[280px] premium-transition hover:shadow-[0_30px_60px_rgba(0,0,0,0.04)] hover:-translate-y-1 cursor-pointer">
                     <div class="flex items-start justify-between">
                         <span class="text-[10px] font-bold tracking-widest text-neutral-400 font-mono">02 / TASARIM</span>
                         <div class="w-8 h-8 rounded-lg bg-white flex items-center justify-center shadow-sm premium-transition group-hover:bg-brandDark group-hover:text-white">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 premium-transition group-hover:rotate-90" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3c.132 4.962 4.038 8.868 9 9-.132 4.962-4.038 8.868-9 9-.132-4.962-4.038-8.868-9-9 .132-4.962 4.038-8.868 9-9z"/></svg>
+                            <span class="text-xs inline-block premium-transition group-hover:rotate-90" aria-hidden="true">✦</span>
                         </div>
                     </div>
                     <div class="space-y-3">
@@ -307,11 +415,11 @@
                 </div>
 
                 <!-- Kart 3 — Web Geliştirme -->
-                <div class="group p-10 bg-brandLight rounded-[32px] flex flex-col justify-between min-h-[280px] premium-transition hover:shadow-[0_30px_60px_rgba(0,0,0,0.04)] hover:-translate-y-1 cursor-pointer">
+                <div class="reveal rd3 group p-10 bg-brandLight rounded-[32px] flex flex-col justify-between min-h-[280px] premium-transition hover:shadow-[0_30px_60px_rgba(0,0,0,0.04)] hover:-translate-y-1 cursor-pointer">
                     <div class="flex items-start justify-between">
                         <span class="text-[10px] font-bold tracking-widest text-neutral-400 font-mono">03 / WEB</span>
                         <div class="w-8 h-8 rounded-lg bg-white flex items-center justify-center shadow-sm premium-transition group-hover:bg-brandDark group-hover:text-white">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 premium-transition group-hover:rotate-90" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3c.132 4.962 4.038 8.868 9 9-.132 4.962-4.038 8.868-9 9-.132-4.962-4.038-8.868-9-9 .132-4.962 4.038-8.868 9-9z"/></svg>
+                            <span class="text-xs inline-block premium-transition group-hover:rotate-90" aria-hidden="true">✦</span>
                         </div>
                     </div>
                     <div class="space-y-3">
@@ -321,11 +429,11 @@
                 </div>
 
                 <!-- Kart 4 — Prodüksiyon (Vurgulu) -->
-                <div class="group md:col-span-2 p-10 bg-brandLight rounded-[32px] flex flex-col justify-between min-h-[280px] premium-transition hover:shadow-[0_30px_60px_rgba(0,0,0,0.04)] hover:-translate-y-1 cursor-pointer">
+                <div class="reveal rd4 group md:col-span-2 p-10 bg-brandLight rounded-[32px] flex flex-col justify-between min-h-[280px] premium-transition hover:shadow-[0_30px_60px_rgba(0,0,0,0.04)] hover:-translate-y-1 cursor-pointer">
                     <div class="flex items-start justify-between">
                         <span class="text-[10px] font-bold tracking-widest text-neutral-400 font-mono">04 / PRODÜKSİYON</span>
                         <div class="w-8 h-8 rounded-lg bg-white flex items-center justify-center shadow-sm premium-transition group-hover:bg-brandDark group-hover:text-white">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 premium-transition group-hover:rotate-90" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3c.132 4.962 4.038 8.868 9 9-.132 4.962-4.038 8.868-9 9-.132-4.962-4.038-8.868-9-9 .132-4.962 4.038-8.868 9-9z"/></svg>
+                            <span class="text-xs inline-block premium-transition group-hover:rotate-90" aria-hidden="true">✦</span>
                         </div>
                     </div>
                     <div class="space-y-3">
@@ -337,7 +445,7 @@
             </div>
 
             <!-- Ayırıcı + Farklılaştırıcı Güçler -->
-            <div class="border-t border-black/[0.06] pt-14 flex flex-col md:flex-row justify-between items-start gap-10">
+            <div class="reveal border-t border-black/[0.06] pt-14 flex flex-col md:flex-row justify-between items-start gap-10">
                 <div class="space-y-2 max-w-xs">
                     <span class="text-xs font-bold tracking-widest text-neutral-400 uppercase font-mono">FARK YARATAN</span>
                     <h3 class="text-2xl font-black tracking-tight">Neden bizi tercih ediyorlar?</h3>
@@ -345,21 +453,21 @@
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 flex-1">
                     <div class="space-y-2">
                         <div class="flex items-center gap-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-brandDark" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3c.132 4.962 4.038 8.868 9 9-.132 4.962-4.038 8.868-9 9-.132-4.962-4.038-8.868-9-9 .132-4.962 4.038-8.868 9-9z"/></svg>
+                            <span class="text-[10px] text-brandDark flex-shrink-0" aria-hidden="true">✦</span>
                             <span class="text-xs font-bold">Tek Ekosistem</span>
                         </div>
                         <p class="text-[11px] text-neutral-500 leading-relaxed font-light">Dört hizmet, bir ekip, sıfır koordinasyon derdi. Tasarım ve yazılım aynı masada buluşuyor.</p>
                     </div>
                     <div class="space-y-2">
                         <div class="flex items-center gap-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-brandDark" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3c.132 4.962 4.038 8.868 9 9-.132 4.962-4.038 8.868-9 9-.132-4.962-4.038-8.868-9-9 .132-4.962 4.038-8.868 9-9z"/></svg>
+                            <span class="text-[10px] text-brandDark flex-shrink-0" aria-hidden="true">✦</span>
                             <span class="text-xs font-bold">Sonuç Odaklı</span>
                         </div>
                         <p class="text-[11px] text-neutral-500 leading-relaxed font-light">Estetik güzel olmak yetmez — her teslimat ölçülebilir bir iş çıktısına bağlıdır.</p>
                     </div>
                     <div class="space-y-2">
                         <div class="flex items-center gap-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-brandDark" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3c.132 4.962 4.038 8.868 9 9-.132 4.962-4.038 8.868-9 9-.132-4.962-4.038-8.868-9-9 .132-4.962 4.038-8.868 9-9z"/></svg>
+                            <span class="text-[10px] text-brandDark flex-shrink-0" aria-hidden="true">✦</span>
                             <span class="text-xs font-bold">Ölçeklenebilir</span>
                         </div>
                         <p class="text-[11px] text-neutral-500 leading-relaxed font-light">Bugün başladığınız yapı, yarın büyüdüğünüzde yıkılmaz. Her proje, geleceğe hazır mimariyle teslim edilir.</p>
@@ -373,32 +481,21 @@
     <!-- =========================================================================
         4. BÖLÜM: HİZMETLER — APPLE TARZI YATAY KAYDIRMALI CAROUSEL
         ========================================================================= -->
-    <section id="hizmetler" class="w-full text-white py-28 rounded-t-[48px] md:rounded-t-[80px] relative z-30 shadow-[0_-20px_50px_rgba(0,0,0,0.1)] overflow-hidden">
+    <section id="hizmetler" class="w-full text-white py-20 md:py-28 rounded-t-[48px] md:rounded-t-[80px] relative z-30 shadow-[0_-20px_50px_rgba(0,0,0,0.1)] overflow-hidden">
 
-        <!-- Arka plan: yeşil aurora glow -->
-        <div class="absolute inset-0 z-0" style="
-            background:
-                radial-gradient(ellipse 85% 65% at 78% 92%, rgba(202,255,1,0.42) 0%, rgba(80,200,0,0.18) 45%, transparent 70%),
-                radial-gradient(ellipse 45% 55% at 12% 48%, rgba(60,160,0,0.22) 0%, transparent 58%),
-                linear-gradient(128deg, rgba(30,70,0,0.28) 0%, transparent 45%),
-                #040704;
-            opacity: 0.85;
-        "></div>
-
+        <!-- Arka plan görseli -->
+        <div class="absolute inset-0 z-0 pointer-events-none" style="background: url('web/public/ARKAPLAN.png') center center / cover no-repeat;"></div>
         <!-- Buzlu cam katmanı -->
-        <div class="absolute inset-0 z-[1]" style="
-            background: rgba(6,10,5,0.25);
-            backdrop-filter: blur(0px);
-        "></div>
+        <div class="absolute inset-0 z-[1] pointer-events-none" style="backdrop-filter: blur(12px); background: rgba(4,7,4,0.45);"></div>
 
         <div class="relative z-[2]">
 
             <!-- Başlık + Oklar -->
-            <div class="max-w-7xl mx-auto px-8 md:px-16 lg:px-24 flex justify-between items-end mb-10">
+            <div class="reveal max-w-7xl mx-auto px-4 md:px-16 lg:px-24 flex justify-between items-end mb-10">
                 <div class="space-y-3">
                     <span class="text-[10px] font-bold tracking-[0.3em] text-neutral-600 uppercase font-mono">HİZMETLERİMİZ</span>
                     <h2 class="text-3xl md:text-5xl font-black tracking-tight leading-[1.05]">
-                        Sizin için<br><span class="text-brandNeon">yapabileceklerimiz.</span>
+                        Sizin için<br><span class="text-brandNeon text-shimmer" data-text="yapabileceklerimiz.">yapabileceklerimiz.</span>
                     </h2>
                 </div>
                 <div class="hidden md:flex items-center gap-3">
@@ -412,12 +509,12 @@
             </div>
 
             <!-- Kaydırmalı Kart Listesi -->
-            <div id="services-track" class="services-scroll flex gap-4 overflow-x-auto pb-4">
+            <div id="services-track" class="reveal rd1 services-scroll flex gap-4 overflow-x-auto pb-4 pl-4 md:pl-8 lg:pl-24">
 
                 <!-- ── 1. Sosyal Medya Yönetimi ── -->
-                <div class="srv-card flex-none w-[300px] md:w-[340px] h-[460px] rounded-[28px] flex flex-col justify-between p-7 cursor-pointer group relative overflow-hidden" style="background: rgba(220,210,255,0.08); backdrop-filter: blur(14px); border: 1px solid rgba(220,210,255,0.12);">
-                    <div class="absolute inset-0 opacity-0 group-hover:opacity-100 premium-transition" style="background: radial-gradient(ellipse at 50% 120%, rgba(168,85,247,0.25) 0%, transparent 70%);"></div>
-                    <span class="text-base font-bold tracking-wide font-mono relative z-10" style="color:rgba(192,132,252,0.7)">Sosyal Medya Yönetimi</span>
+                <div class="srv-card flex-none w-[300px] md:w-[340px] h-[460px] rounded-[28px] flex flex-col justify-between p-7 cursor-pointer group relative overflow-hidden" style="background: rgba(168,85,247,0.08); backdrop-filter: blur(14px); border: 1px solid rgba(168,85,247,0.16);">
+                    <div class="absolute inset-0 opacity-0 group-hover:opacity-100 premium-transition" style="background: radial-gradient(ellipse at 50% 120%, rgba(168,85,247,0.22) 0%, transparent 70%);"></div>
+                    <span class="text-base font-bold tracking-wide font-mono relative z-10" style="color:rgba(192,132,252,0.85)">Sosyal Medya Yönetimi</span>
                     <!-- Visual -->
                     <div class="flex-1 flex items-center justify-center relative z-10 py-4">
                         <div class="grid grid-cols-2 gap-3">
@@ -439,14 +536,14 @@
                     </div>
                     <div class="space-y-1 relative z-10">
                         <h3 class="text-2xl font-black tracking-tight text-white leading-tight">Markanı her mecrada<br>görünür kıl.</h3>
-                        <p class="text-[11px] text-purple-200/50 font-light leading-relaxed">İçerik, büyüme stratejisi ve topluluk yönetimi.</p>
+                        <p class="text-[11px] font-light leading-relaxed" style="color:rgba(192,132,252,0.50)">İçerik, büyüme stratejisi ve topluluk yönetimi.</p>
                     </div>
                 </div>
 
                 <!-- ── 2. Reklam Yönetimi ── -->
-                <div class="srv-card flex-none w-[300px] md:w-[340px] h-[460px] rounded-[28px] flex flex-col justify-between p-7 cursor-pointer group relative overflow-hidden" style="background: rgba(255,225,190,0.08); backdrop-filter: blur(14px); border: 1px solid rgba(255,225,190,0.12);">
-                    <div class="absolute inset-0 opacity-0 group-hover:opacity-100 premium-transition" style="background: radial-gradient(ellipse at 50% 120%, rgba(251,146,60,0.2) 0%, transparent 70%);"></div>
-                    <span class="text-base font-bold tracking-wide font-mono relative z-10" style="color:rgba(251,146,60,0.7)">Reklam Yönetimi</span>
+                <div class="srv-card flex-none w-[300px] md:w-[340px] h-[460px] rounded-[28px] flex flex-col justify-between p-7 cursor-pointer group relative overflow-hidden" style="background: rgba(245,158,11,0.08); backdrop-filter: blur(14px); border: 1px solid rgba(245,158,11,0.16);">
+                    <div class="absolute inset-0 opacity-0 group-hover:opacity-100 premium-transition" style="background: radial-gradient(ellipse at 50% 120%, rgba(245,158,11,0.20) 0%, transparent 70%);"></div>
+                    <span class="text-base font-bold tracking-wide font-mono relative z-10" style="color:rgba(251,191,36,0.85)">Reklam Yönetimi</span>
                     <!-- Visual: ROI bar chart -->
                     <div class="flex-1 flex items-end justify-center gap-2 relative z-10 pb-4 pt-6">
                         <div class="flex flex-col items-center gap-1">
@@ -478,14 +575,14 @@
                     </div>
                     <div class="space-y-1 relative z-10">
                         <h3 class="text-2xl font-black tracking-tight text-white leading-tight">Her lira, maksimum<br>getiri için çalışsın.</h3>
-                        <p class="text-[11px] font-light leading-relaxed" style="color:rgba(251,146,60,0.5)">Meta, Google, TikTok — hedefli reklam yönetimi.</p>
+                        <p class="text-[11px] font-light leading-relaxed" style="color:rgba(251,191,36,0.50)">Meta, Google, TikTok — hedefli reklam yönetimi.</p>
                     </div>
                 </div>
 
                 <!-- ── 3. Web Tasarım ── -->
-                <div class="srv-card flex-none w-[300px] md:w-[340px] h-[460px] rounded-[28px] flex flex-col justify-between p-7 cursor-pointer group relative overflow-hidden" style="background: rgba(190,215,255,0.08); backdrop-filter: blur(14px); border: 1px solid rgba(190,215,255,0.12);">
-                    <div class="absolute inset-0 opacity-0 group-hover:opacity-100 premium-transition" style="background: radial-gradient(ellipse at 50% 120%, rgba(59,130,246,0.2) 0%, transparent 70%);"></div>
-                    <span class="text-base font-bold tracking-wide font-mono relative z-10" style="color:rgba(96,165,250,0.7)">Web Tasarım</span>
+                <div class="srv-card flex-none w-[300px] md:w-[340px] h-[460px] rounded-[28px] flex flex-col justify-between p-7 cursor-pointer group relative overflow-hidden" style="background: rgba(59,130,246,0.08); backdrop-filter: blur(14px); border: 1px solid rgba(59,130,246,0.16);">
+                    <div class="absolute inset-0 opacity-0 group-hover:opacity-100 premium-transition" style="background: radial-gradient(ellipse at 50% 120%, rgba(59,130,246,0.22) 0%, transparent 70%);"></div>
+                    <span class="text-base font-bold tracking-wide font-mono relative z-10" style="color:rgba(96,165,250,0.85)">Web Tasarım</span>
                     <!-- Visual: browser mockup -->
                     <div class="flex-1 flex items-center justify-center relative z-10 py-2">
                         <div class="w-full max-w-[220px] rounded-xl overflow-hidden shadow-2xl" style="border: 1px solid rgba(96,165,250,0.15);">
@@ -511,14 +608,14 @@
                     </div>
                     <div class="space-y-1 relative z-10">
                         <h3 class="text-2xl font-black tracking-tight text-white leading-tight">Dijital vitrinini elit<br>bir seviyeye taşı.</h3>
-                        <p class="text-[11px] font-light leading-relaxed" style="color:rgba(96,165,250,0.5)">Next.js, hız, SEO ve dönüşüm odaklı tasarım.</p>
+                        <p class="text-[11px] font-light leading-relaxed" style="color:rgba(96,165,250,0.50)">Next.js, hız, SEO ve dönüşüm odaklı tasarım.</p>
                     </div>
                 </div>
 
                 <!-- ── 4. Prodüksiyon ── -->
-                <div class="srv-card flex-none w-[300px] md:w-[340px] h-[460px] rounded-[28px] flex flex-col justify-between p-7 cursor-pointer group relative overflow-hidden" style="background: rgba(255,255,255,0.07); backdrop-filter: blur(14px); border: 1px solid rgba(255,255,255,0.11);">
-                    <div class="absolute inset-0 opacity-0 group-hover:opacity-100 premium-transition" style="background: radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.05) 0%, transparent 70%);"></div>
-                    <span class="text-base font-bold tracking-wide font-mono text-neutral-400 relative z-10">Prodüksiyon</span>
+                <div class="srv-card flex-none w-[300px] md:w-[340px] h-[460px] rounded-[28px] flex flex-col justify-between p-7 cursor-pointer group relative overflow-hidden" style="background: rgba(255,255,255,0.07); backdrop-filter: blur(14px); border: 1px solid rgba(255,255,255,0.12);">
+                    <div class="absolute inset-0 opacity-0 group-hover:opacity-100 premium-transition" style="background: radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.10) 0%, transparent 70%);"></div>
+                    <span class="text-base font-bold tracking-wide font-mono relative z-10" style="color:rgba(203,213,225,0.80)">Prodüksiyon</span>
                     <!-- Visual: play button + film -->
                     <div class="flex-1 flex items-center justify-center relative z-10">
                         <div class="relative">
@@ -541,14 +638,14 @@
                     </div>
                     <div class="space-y-1 relative z-10">
                         <h3 class="text-2xl font-black tracking-tight text-white leading-tight">Scroll'u durduran<br>içerikler üret.</h3>
-                        <p class="text-[11px] text-neutral-600 font-light leading-relaxed">Foto, video, reels, motion graphics ve reklam filmi.</p>
+                        <p class="text-[11px] font-light leading-relaxed" style="color:rgba(148,163,184,0.60)">Foto, video, reels, motion graphics ve reklam filmi.</p>
                     </div>
                 </div>
 
                 <!-- ── 5. Kurumsal Kimlik Tasarımı ── -->
-                <div class="srv-card flex-none w-[300px] md:w-[340px] h-[460px] rounded-[28px] flex flex-col justify-between p-7 cursor-pointer group relative overflow-hidden" style="background: rgba(190,255,210,0.08); backdrop-filter: blur(14px); border: 1px solid rgba(190,255,210,0.12);">
-                    <div class="absolute inset-0 opacity-0 group-hover:opacity-100 premium-transition" style="background: radial-gradient(ellipse at 50% 120%, rgba(34,197,94,0.15) 0%, transparent 70%);"></div>
-                    <span class="text-base font-bold tracking-wide font-mono relative z-10" style="color:rgba(74,222,128,0.7)">Kurumsal Kimlik Tasarımı</span>
+                <div class="srv-card flex-none w-[300px] md:w-[340px] h-[460px] rounded-[28px] flex flex-col justify-between p-7 cursor-pointer group relative overflow-hidden" style="background: rgba(35,83,71,0.12); backdrop-filter: blur(14px); border: 1px solid rgba(142,182,155,0.20);">
+                    <div class="absolute inset-0 opacity-0 group-hover:opacity-100 premium-transition" style="background: radial-gradient(ellipse at 50% 120%, rgba(142,182,155,0.22) 0%, transparent 70%);"></div>
+                    <span class="text-base font-bold tracking-wide font-mono relative z-10" style="color:#8eb69b">Kurumsal Kimlik Tasarımı</span>
                     <!-- Visual: color swatches + lettermark -->
                     <div class="flex-1 flex flex-col items-center justify-center gap-5 relative z-10">
                         <div class="w-20 h-20 rounded-[20px] flex items-center justify-center shadow-2xl" style="background: linear-gradient(135deg, #16A34A, #15803D); border: 1px solid rgba(74,222,128,0.2);">
@@ -564,14 +661,14 @@
                     </div>
                     <div class="space-y-1 relative z-10">
                         <h3 class="text-2xl font-black tracking-tight text-white leading-tight">Akıllarda yer eden<br>bir marka ol.</h3>
-                        <p class="text-[11px] font-light leading-relaxed" style="color:rgba(74,222,128,0.5)">Logo, renk paleti, tipografi ve marka rehberi.</p>
+                        <p class="text-[11px] font-light leading-relaxed" style="color:rgba(142,182,155,0.55)">Logo, renk paleti, tipografi ve marka rehberi.</p>
                     </div>
                 </div>
 
                 <!-- ── 6. AI Otomasyon Sistemleri ── -->
-                <div class="srv-card flex-none w-[300px] md:w-[340px] h-[460px] rounded-[28px] flex flex-col justify-between p-7 cursor-pointer group relative overflow-hidden" style="background: rgba(210,255,180,0.08); backdrop-filter: blur(14px); border: 1px solid rgba(210,255,180,0.12);">
-                    <div class="absolute inset-0 opacity-0 group-hover:opacity-100 premium-transition" style="background: radial-gradient(ellipse at 50% 50%, rgba(202,255,1,0.1) 0%, transparent 70%);"></div>
-                    <span class="text-base font-bold tracking-wide font-mono relative z-10" style="color:rgba(202,255,1,0.7)">AI Otomasyon Sistemleri</span>
+                <div class="srv-card flex-none w-[300px] md:w-[340px] h-[460px] rounded-[28px] flex flex-col justify-between p-7 cursor-pointer group relative overflow-hidden" style="background: rgba(202,255,1,0.07); backdrop-filter: blur(14px); border: 1px solid rgba(202,255,1,0.14);">
+                    <div class="absolute inset-0 opacity-0 group-hover:opacity-100 premium-transition" style="background: radial-gradient(ellipse at 50% 50%, rgba(202,255,1,0.18) 0%, transparent 70%);"></div>
+                    <span class="text-base font-bold tracking-wide font-mono relative z-10" style="color:rgba(202,255,1,0.8)">AI Otomasyon Sistemleri</span>
                     <!-- Visual: neural network nodes -->
                     <div class="flex-1 flex items-center justify-center relative z-10">
                         <svg width="180" height="160" viewBox="0 0 180 160" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -602,9 +699,9 @@
                 </div>
 
                 <!-- ── 7. Yapay Zeka Entegrasyonu ── -->
-                <div class="srv-card flex-none w-[300px] md:w-[340px] h-[460px] rounded-[28px] flex flex-col justify-between p-7 cursor-pointer group relative overflow-hidden" style="background: rgba(210,195,255,0.08); backdrop-filter: blur(14px); border: 1px solid rgba(210,195,255,0.12);">
-                    <div class="absolute inset-0 opacity-0 group-hover:opacity-100 premium-transition" style="background: radial-gradient(ellipse at 50% 120%, rgba(139,92,246,0.2) 0%, transparent 70%);"></div>
-                    <span class="text-base font-bold tracking-wide font-mono relative z-10" style="color:rgba(167,139,250,0.7)">Yapay Zeka Entegrasyonu</span>
+                <div class="srv-card flex-none w-[300px] md:w-[340px] h-[460px] rounded-[28px] flex flex-col justify-between p-7 cursor-pointer group relative overflow-hidden" style="background: rgba(34,211,238,0.07); backdrop-filter: blur(14px); border: 1px solid rgba(34,211,238,0.14);">
+                    <div class="absolute inset-0 opacity-0 group-hover:opacity-100 premium-transition" style="background: radial-gradient(ellipse at 50% 120%, rgba(34,211,238,0.20) 0%, transparent 70%);"></div>
+                    <span class="text-base font-bold tracking-wide font-mono relative z-10" style="color:rgba(103,232,249,0.85)">Yapay Zeka Entegrasyonu</span>
                     <!-- Visual: abstract AI interface -->
                     <div class="flex-1 flex flex-col items-center justify-center gap-3 relative z-10 py-2">
                         <div class="w-16 h-16 rounded-2xl flex items-center justify-center" style="background: rgba(139,92,246,0.15); border: 1px solid rgba(139,92,246,0.3);">
@@ -627,7 +724,7 @@
                     </div>
                     <div class="space-y-1 relative z-10">
                         <h3 class="text-2xl font-black tracking-tight text-white leading-tight">Yapay zekayı işinin<br>kalbine yerleştir.</h3>
-                        <p class="text-[11px] font-light leading-relaxed" style="color:rgba(167,139,250,0.5)">OpenAI, Anthropic ve özel model entegrasyonları.</p>
+                        <p class="text-[11px] font-light leading-relaxed" style="color:rgba(103,232,249,0.50)">OpenAI, Anthropic ve özel model entegrasyonları.</p>
                     </div>
                 </div>
 
@@ -636,9 +733,9 @@
             </div>
 
             <!-- Alt CTA -->
-            <div class="max-w-7xl mx-auto px-8 md:px-16 lg:px-24 mt-10">
+            <div class="max-w-7xl mx-auto px-4 md:px-16 lg:px-24 mt-10">
                 <div class="flex flex-col sm:flex-row items-center justify-between gap-6 p-7 rounded-2xl" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);">
-                    <p class="text-sm text-neutral-400 font-light">Hangi hizmetin işinize yarayacağından emin değil misiniz?</p>
+                    <p class="text-sm text-neutral-400 font-light">Hangi hizmetin size uygun olduğuna birlikte karar verelim — ücretsiz, bağlayıcı olmayan bir görüşmeyle.</p>
                     <button class="flex-shrink-0 px-6 py-3 bg-brandNeon text-black text-xs font-bold rounded-full premium-transition hover:scale-105 active:scale-95 cursor-pointer">
                         Ücretsiz Keşif Görüşmesi
                     </button>
@@ -651,29 +748,29 @@
     <!-- =========================================================================
         5. BÖLÜM: EKİBİMİZ & İLETİŞİM (ŞIK VE SADE BEYAZ KAPANIŞ)
         ========================================================================= -->
-    <section id="ekibimiz" class="w-full bg-white text-brandDark py-36 rounded-t-[48px] md:rounded-t-[80px] relative z-40 shadow-[0_-20px_50px_rgba(0,0,0,0.03)]">
-        <div class="max-w-7xl mx-auto px-8 md:px-16 lg:px-24 flex flex-col space-y-24">
+    <section id="ekibimiz" class="w-full bg-white text-brandDark py-20 md:py-36 rounded-t-[48px] md:rounded-t-[80px] relative z-40 shadow-[0_-20px_50px_rgba(0,0,0,0.03)]">
+        <div class="max-w-7xl mx-auto px-4 md:px-16 lg:px-24 flex flex-col space-y-16 md:space-y-24">
 
             <!-- Ekip Kısmı -->
             <div class="space-y-12">
-                <div class="space-y-2">
+                <div class="reveal space-y-2">
                     <span class="text-xs font-bold tracking-widest text-neutral-400 uppercase font-mono">KREATİF GÜÇ</span>
-                    <h2 class="text-3xl font-black tracking-tight">Küratörlerimiz</h2>
+                    <h2 class="text-3xl font-black tracking-tight">Ekibimiz</h2>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                    <div class="p-6 bg-brandLight rounded-2xl flex justify-between items-center">
+                    <div class="reveal rd1 p-6 bg-brandLight rounded-2xl flex justify-between items-center">
                         <div>
                             <h4 class="text-sm font-bold">Can Yılmaz</h4>
                             <p class="text-[11px] text-neutral-400 font-mono">AI Automation Lead</p>
                         </div>
                     </div>
-                    <div class="p-6 bg-brandLight rounded-2xl flex justify-between items-center">
+                    <div class="reveal rd2 p-6 bg-brandLight rounded-2xl flex justify-between items-center">
                         <div>
                             <h4 class="text-sm font-bold">Selin Demir</h4>
                             <p class="text-[11px] text-neutral-400 font-mono">UI/UX Director</p>
                         </div>
                     </div>
-                    <div class="p-6 bg-brandLight rounded-2xl flex justify-between items-center">
+                    <div class="reveal rd3 p-6 bg-brandLight rounded-2xl flex justify-between items-center">
                         <div>
                             <h4 class="text-sm font-bold">Mert Kaya</h4>
                             <p class="text-[11px] text-neutral-400 font-mono">Lead Developer</p>
@@ -683,9 +780,9 @@
             </div>
 
             <!-- İletişim Bloğu -->
-            <div id="iletisim" class="w-full p-12 bg-brandDark text-white rounded-[40px] flex flex-col lg:flex-row justify-between items-center gap-10 shadow-xl relative overflow-hidden">
+            <div id="iletisim" class="reveal rd2 w-full p-12 bg-brandDark text-white rounded-[40px] flex flex-col lg:flex-row justify-between items-center gap-10 shadow-xl relative overflow-hidden">
                 <div class="space-y-3 max-w-md text-center lg:text-left">
-                    <h3 class="text-2xl md:text-3xl font-black tracking-tight">Bir sonraki dalgayı başlatalım.</h3>
+                    <h3 class="text-2xl md:text-3xl font-black tracking-tight">Projenizi konuşalım.</h3>
                     <p class="text-xs text-neutral-400 font-light leading-relaxed">Fikirlerinizi otonom sistemlerle ölçeklemek için terzi usulü mühendislik.</p>
                 </div>
                 <div class="w-full lg:w-auto flex flex-col sm:flex-row items-center gap-3 relative z-10">
@@ -700,75 +797,67 @@
         6. FOOTER — GELİŞTİRİLMİŞ KAPANIŞ
         Magnetic CTA + animated border + full nav row
         ========================================================================= -->
-    <footer class="w-full bg-brandDark text-white relative z-50 overflow-hidden">
+    <footer class="w-full bg-brandDark text-white relative z-50">
 
-        <!-- Arka plan neon glow -->
-        <div class="absolute bottom-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-brandNeon/[0.04] rounded-full blur-[130px] pointer-events-none"></div>
-        <div class="absolute top-0 right-0 w-[300px] h-[300px] bg-white/[0.01] rounded-full blur-[80px] pointer-events-none"></div>
+        <!-- Neon ambient glow -->
+        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-brandNeon/[0.03] rounded-full blur-[120px] pointer-events-none"></div>
 
-        <!-- Büyük CTA Bölümü -->
-        <div class="max-w-7xl mx-auto px-8 md:px-16 lg:px-24 pt-28 pb-16 flex flex-col items-center text-center space-y-10 relative z-10">
-
-            <span class="text-[10px] font-bold tracking-[0.3em] uppercase font-mono text-neutral-600">SONRAKI ADIM</span>
-
-            <h2 class="text-5xl md:text-7xl lg:text-[88px] font-black tracking-tight leading-[0.95] max-w-4xl">
-                Bir Sonraki<br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-brandNeon via-white to-neutral-500">Dalgayı</span><br>
-                Başlatalım.
-            </h2>
-
-            <p class="text-xs text-neutral-600 max-w-xs font-light tracking-wide leading-relaxed">
-                Fikrinizi bize anlatın — 48 saat içinde size özel bir yol haritası hazırlayalım.
-            </p>
-
-            <!-- Magnetic Button -->
-            <div class="magnetic-wrap">
-                <button class="magnetic-btn" id="footer-cta" aria-label="Proje Başlat">
-                    <span class="magnetic-btn__text">
-                        <span class="magnetic-btn__text-inner">
-                            Proje Başlat
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path d="M12 3c.132 4.962 4.038 8.868 9 9-.132 4.962-4.038 8.868-9 9-.132-4.962-4.038-8.868-9-9 .132-4.962 4.038-8.868 9-9z"/>
-                            </svg>
-                        </span>
-                    </span>
-                </button>
-            </div>
-        </div>
-
-        <!-- Animasyonlu İnce Ayırıcı -->
-        <div class="max-w-7xl mx-auto px-8 md:px-16 lg:px-24">
+        <!-- Üst animasyonlu divider -->
+        <div class="max-w-7xl mx-auto px-4 md:px-16 lg:px-24">
             <div class="footer-border-animated"></div>
         </div>
 
-        <!-- Alt Satır: Logo / Nav / Kontakt -->
-        <div class="max-w-7xl mx-auto px-8 md:px-16 lg:px-24 py-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8 relative z-10">
-
-            <!-- Logo -->
-            <div class="flex items-center group cursor-pointer">
-                <img src="web/public/LOGO.png" alt="SocialWave" class="w-auto premium-transition group-hover:opacity-80" style="height: 90px; filter: brightness(0) invert(1);">
-            </div>
-
-            <!-- Nav Linkleri -->
-            <nav class="flex flex-wrap gap-x-8 gap-y-3" aria-label="Footer navigation">
-                <a href="#hakkimizda" class="footer-link text-[11px] font-semibold text-neutral-500 tracking-wide transition-colors duration-200">Hakkımızda</a>
-                <a href="#hizmetler"  class="footer-link text-[11px] font-semibold text-neutral-500 tracking-wide transition-colors duration-200">Hizmetler</a>
-                <a href="#ekibimiz"   class="footer-link text-[11px] font-semibold text-neutral-500 tracking-wide transition-colors duration-200">Ekibimiz</a>
-                <a href="#iletisim"   class="footer-link text-[11px] font-semibold text-neutral-500 tracking-wide transition-colors duration-200">İletişim</a>
-            </nav>
-
-            <!-- Kontakt + Copyright -->
-            <div class="flex flex-col items-start md:items-end gap-2">
-                <a href="mailto:berkecavdar3@gmail.com"
-                   class="text-[11px] font-mono text-neutral-500 hover:text-brandNeon transition-colors duration-300 tracking-wide">
-                    berkecavdar3@gmail.com
+        <!-- Katman 1 — Logo + Sosyal Medya -->
+        <div class="max-w-7xl mx-auto px-4 md:px-16 lg:px-24 py-8 flex items-center justify-between relative z-10">
+            <img src="web/public/LOGO.png" alt="SocialWave" style="height: 80px; filter: brightness(0) invert(1);">
+            <div class="flex items-center gap-1">
+                <a href="#" aria-label="Instagram" class="w-11 h-11 flex items-center justify-center rounded-full text-neutral-600 hover:text-white hover:bg-white/[0.05] transition-all duration-200 cursor-pointer">
+                    <svg class="w-[18px] h-[18px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
                 </a>
-                <span class="text-[10px] text-neutral-700 tracking-wide">© 2026 SocialWave. Tüm hakları saklıdır.</span>
+                <a href="#" aria-label="TikTok" class="w-11 h-11 flex items-center justify-center rounded-full text-neutral-600 hover:text-white hover:bg-white/[0.05] transition-all duration-200 cursor-pointer">
+                    <svg class="w-[18px] h-[18px]" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg>
+                </a>
+                <a href="#" aria-label="X / Twitter" class="w-11 h-11 flex items-center justify-center rounded-full text-neutral-600 hover:text-white hover:bg-white/[0.05] transition-all duration-200 cursor-pointer">
+                    <svg class="w-[18px] h-[18px]" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+                <a href="#" aria-label="YouTube" class="w-11 h-11 flex items-center justify-center rounded-full text-neutral-600 hover:text-white hover:bg-white/[0.05] transition-all duration-200 cursor-pointer">
+                    <svg class="w-[18px] h-[18px]" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                </a>
             </div>
         </div>
 
-        <!-- En alt: ince zemin çizgisi -->
-        <div class="w-full h-px bg-white/[0.03]"></div>
+        <!-- Divider -->
+        <div class="max-w-7xl mx-auto px-4 md:px-16 lg:px-24"><div class="h-px bg-white/[0.06]"></div></div>
+
+        <!-- Katman 2 — Nav -->
+        <nav class="max-w-7xl mx-auto px-4 md:px-16 lg:px-24 py-6 flex flex-wrap items-center justify-center gap-x-10 gap-y-3 relative z-10" aria-label="Footer navigation">
+            <a href="#hakkimizda" class="footer-link text-[10px] font-bold tracking-[0.18em] uppercase font-mono text-neutral-600 cursor-pointer">Hakkımızda</a>
+            <a href="#hizmetler"  class="footer-link text-[10px] font-bold tracking-[0.18em] uppercase font-mono text-neutral-600 cursor-pointer">Hizmetler</a>
+            <a href="#ekibimiz"   class="footer-link text-[10px] font-bold tracking-[0.18em] uppercase font-mono text-neutral-600 cursor-pointer">Ekibimiz</a>
+            <a href="#iletisim"   class="footer-link text-[10px] font-bold tracking-[0.18em] uppercase font-mono text-neutral-600 cursor-pointer">İletişim</a>
+        </nav>
+
+        <!-- Divider -->
+        <div class="max-w-7xl mx-auto px-4 md:px-16 lg:px-24"><div class="h-px bg-white/[0.06]"></div></div>
+
+        <!-- Katman 3 — Adres + Email -->
+        <div class="max-w-7xl mx-auto px-4 md:px-16 lg:px-24 py-7 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 relative z-10">
+            <address class="not-italic flex items-center gap-2.5 text-[11px] font-mono text-neutral-600 leading-relaxed">
+                <svg class="w-3.5 h-3.5 flex-shrink-0 text-neutral-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                YDA Center, Kızılırmak, 06510 Çankaya / Ankara
+            </address>
+            <a href="mailto:hello@socialwave.com.tr" class="text-[11px] font-mono text-neutral-600 hover:text-brandNeon transition-colors duration-200 tracking-wide cursor-pointer">
+                hello@socialwave.com.tr
+            </a>
+        </div>
+
+        <!-- Katman 4 — Copyright strip -->
+        <div class="border-t border-white/[0.04]">
+            <div class="max-w-7xl mx-auto px-4 md:px-16 lg:px-24 py-4 flex items-center justify-between">
+                <span class="text-[10px] font-mono text-neutral-800">© 2026 SocialWave. Tüm hakları saklıdır.</span>
+                <span class="text-[10px] font-mono text-neutral-800">Ankara, Türkiye ✦</span>
+            </div>
+        </div>
     </footer>
 
 
@@ -910,6 +999,41 @@
             var el = document.getElementById(id);
             if (el) observer.observe(el);
         });
+
+        window.addEventListener('scroll', function () {
+            var first = document.getElementById('hakkimizda');
+            if (first && first.getBoundingClientRect().top > window.innerHeight * 0.6) {
+                setActive('');
+            }
+        }, { passive: true });
+    })();
+
+    /* ── Mobile Menu ── */
+    (function () {
+        var btn   = document.getElementById('mobile-menu-btn');
+        var close = document.getElementById('mobile-menu-close');
+        var menu  = document.getElementById('mobile-menu');
+        var links = menu.querySelectorAll('a');
+        function openMenu()  { menu.classList.add('is-open'); menu.removeAttribute('aria-hidden'); document.body.style.overflow = 'hidden'; }
+        function closeMenu() { menu.classList.remove('is-open'); menu.setAttribute('aria-hidden','true'); document.body.style.overflow = ''; }
+        btn.addEventListener('click', openMenu);
+        close.addEventListener('click', closeMenu);
+        links.forEach(function(l){ l.addEventListener('click', closeMenu); });
+    })();
+
+    /* ── Scroll Reveal Observer ── */
+    (function () {
+        var els = document.querySelectorAll('.reveal');
+        if (!els.length) return;
+        var obs = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+                if (e.isIntersecting) {
+                    e.target.classList.add('is-visible');
+                    obs.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.10, rootMargin: '0px 0px -48px 0px' });
+        els.forEach(function (el) { obs.observe(el); });
     })();
     </script>
 
