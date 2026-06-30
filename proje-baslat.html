@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proje Başlat | SocialWave</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root { --neon: #caff01; }
+        body { font-family: 'Inter', sans-serif; background-color: #0A0A0C; }
+
+        .faq-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0, 1, 0, 1);
+        }
+        .faq-item.open .faq-content {
+            max-height: 1000px;
+            transition: max-height 0.5s cubic-bezier(1, 0, 1, 0);
+        }
+        .faq-icon { transition: transform 0.3s ease; }
+        .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--neon) !important;
+            box-shadow: 0 0 0 1px rgba(202,255,1,0.15);
+        }
+
+        .btn-neon {
+            background: var(--neon);
+            color: #000;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+        .btn-neon:hover { transform: scale(1.04); box-shadow: 0 0 24px rgba(202,255,1,0.25); }
+        .btn-neon:active { transform: scale(0.96); }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(18px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .fade-up { animation: fadeUp 0.55s ease both; }
+        .delay-1 { animation-delay: 0.08s; }
+        .delay-2 { animation-delay: 0.16s; }
+        .delay-3 { animation-delay: 0.24s; }
+    </style>
+</head>
+<body class="text-white selection:bg-[#caff01] selection:text-black antialiased overflow-x-hidden">
+
+    <!-- HEADER -->
+    <header class="w-full py-5 px-6 md:px-12 border-b border-white/[0.05] flex justify-between items-center bg-[#0A0A0C]/80 backdrop-blur-md sticky top-0 z-50">
+        <a href="index.html" class="group text-xs font-bold tracking-[0.15em] uppercase flex items-center gap-2 text-neutral-500 hover:text-white transition-colors duration-200">
+            <svg class="w-3.5 h-3.5 transition-transform duration-200 group-hover:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/>
+            </svg>
+            Ana Sayfaya Dön
+        </a>
+        <div class="text-sm font-extrabold tracking-wider">SOCIAL<span style="color:var(--neon)">WAVE</span></div>
+    </header>
+
+    <!-- MAIN -->
+    <main class="max-w-7xl mx-auto px-6 py-14 md:py-20 space-y-24">
+
+        <!-- FORM SECTION -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+            <!-- LEFT INFO COLUMN -->
+            <div class="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 fade-up">
+
+                <div class="sm:col-span-2 lg:col-span-1 p-8 bg-neutral-900/40 border border-white/[0.05] rounded-[32px] space-y-5">
+                    <div style="color:var(--neon)">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 3c.132 4.962 4.038 8.868 9 9-.132 4.962-4.038 8.868-9 9-.132-4.962-4.038-8.868-9-9 .132-4.962 4.038-8.868 9-9z"/>
+                        </svg>
+                    </div>
+                    <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight leading-snug">Geleceği Birlikte<br>İnşa Edelim.</h1>
+                    <p class="text-xs text-neutral-400 font-light leading-relaxed">İş akışlarınızı otonom ajanlarla ölçeklemek ve dijital vitrininizi elit seviyeye taşımak için ilk adımı atın.</p>
+                </div>
+
+                <div class="p-6 bg-neutral-900/20 border border-white/[0.04] rounded-[24px] space-y-2 fade-up delay-1">
+                    <span class="text-[10px] uppercase tracking-widest font-mono text-neutral-500">Doğrudan Hat</span>
+                    <p class="text-sm font-semibold text-white hover:text-[#caff01] transition-colors cursor-pointer">+90 552 249 70 96</p>
+                </div>
+
+                <div class="p-6 bg-neutral-900/20 border border-white/[0.04] rounded-[24px] space-y-2 fade-up delay-1">
+                    <span class="text-[10px] uppercase tracking-widest font-mono text-neutral-500">E-Posta</span>
+                    <p class="text-sm font-semibold text-white hover:text-[#caff01] transition-colors cursor-pointer">info@socialwave.com.tr</p>
+                </div>
+
+                <div class="sm:col-span-2 lg:col-span-1 p-6 rounded-[24px] border fade-up delay-2"
+                     style="background:rgba(202,255,1,0.04); border-color:rgba(202,255,1,0.12)">
+                    <p class="text-xs leading-relaxed font-light" style="color:rgba(202,255,1,0.85)">
+                        <strong>⚡ Süreç Nasıl İşler?</strong><br>
+                        Formu doldurduktan sonra 24 saat içinde ekibimiz sizi arayarak proje detaylarını ve stratejiyi birlikte belirler.
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- RIGHT FORM COLUMN -->
+            <div class="lg:col-span-7 p-8 md:p-10 bg-neutral-900/40 border border-white/[0.05] rounded-[40px] shadow-2xl fade-up delay-2">
+                <h2 class="text-xl font-bold tracking-tight mb-8">Proje Detayları</h2>
+
+                <form id="project-form" class="space-y-6" novalidate>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <div class="space-y-2">
+                            <label class="block text-[10px] font-mono tracking-widest text-neutral-400 uppercase">Adınız Soyadınız *</label>
+                            <input type="text" required name="name"
+                                class="w-full px-4 py-3 bg-black/40 border border-white/[0.07] rounded-xl text-xs text-white placeholder:text-neutral-600 transition-all duration-200"
+                                placeholder="Can Yılmaz">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-[10px] font-mono tracking-widest text-neutral-400 uppercase">E-Posta Adresiniz *</label>
+                            <input type="email" required name="email"
+                                class="w-full px-4 py-3 bg-black/40 border border-white/[0.07] rounded-xl text-xs text-white placeholder:text-neutral-600 transition-all duration-200"
+                                placeholder="isim@sirket.com">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <div class="space-y-2">
+                            <label class="block text-[10px] font-mono tracking-widest text-neutral-400 uppercase">Şirket Adı</label>
+                            <input type="text" name="company"
+                                class="w-full px-4 py-3 bg-black/40 border border-white/[0.07] rounded-xl text-xs text-white placeholder:text-neutral-600 transition-all duration-200"
+                                placeholder="Şirketiniz (opsiyonel)">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-[10px] font-mono tracking-widest text-neutral-400 uppercase">İhtiyacınız Olan Hizmet *</label>
+                            <select required name="service"
+                                class="w-full px-4 py-3 bg-neutral-900 border border-white/[0.07] rounded-xl text-xs text-neutral-400 transition-all duration-200 cursor-pointer">
+                                <option value="">Seçiniz...</option>
+                                <option value="sosyal-medya">Sosyal Medya Yönetimi</option>
+                                <option value="reklam">Reklam Yönetimi</option>
+                                <option value="web">Web Tasarım & Geliştirme</option>
+                                <option value="produksiyon">Prodüksiyon</option>
+                                <option value="kimlik">Kurumsal Kimlik Tasarımı</option>
+                                <option value="ai-otomasyon">AI Otomasyon Sistemleri</option>
+                                <option value="ai-entegrasyon">Yapay Zeka Entegrasyonu</option>
+                                <option value="hepsi">Full-Stack Dijital Dönüşüm (Hepsi)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="block text-[10px] font-mono tracking-widest text-neutral-400 uppercase">Projeniz / Hedefleriniz *</label>
+                        <textarea required name="message" rows="4"
+                            class="w-full px-4 py-3 bg-black/40 border border-white/[0.07] rounded-xl text-xs text-white placeholder:text-neutral-600 transition-all duration-200 resize-none"
+                            placeholder="Bize süreçlerinizden ve hedeflerinizden bahsedin..."></textarea>
+                    </div>
+
+                    <div class="flex justify-between items-center pt-4 border-t border-white/[0.05]">
+                        <span class="text-[9px] text-neutral-500 font-mono">* Zorunlu alanlar</span>
+                        <button type="submit" class="btn-neon px-8 py-3.5 text-xs font-bold rounded-full">
+                            Talebi Gönder
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        </section>
+
+        <!-- FAQ SECTION -->
+        <section class="space-y-10 max-w-3xl mx-auto fade-up delay-3">
+            <div class="text-center space-y-2">
+                <p class="text-[10px] font-mono tracking-widest text-neutral-500 uppercase">SSS</p>
+                <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight">Sıkça Sorulan Sorular</h2>
+            </div>
+
+            <div class="space-y-3">
+
+                <div class="faq-item border border-white/[0.05] rounded-2xl overflow-hidden bg-neutral-900/20">
+                    <button class="faq-trigger w-full px-6 py-5 flex justify-between items-center text-left cursor-pointer select-none hover:bg-white/[0.02] transition-colors duration-200">
+                        <span class="text-xs md:text-sm font-semibold pr-6">Yapay zeka otomasyonu işletmeme tam olarak ne katar?</span>
+                        <span class="faq-icon text-[#caff01] text-xl font-light flex-shrink-0">+</span>
+                    </button>
+                    <div class="faq-content">
+                        <p class="px-6 pb-6 text-xs text-neutral-400 font-light leading-relaxed border-t border-white/[0.04] pt-4">
+                            Rutin ve tekrarlayan veri girişleri, müşteri yanıtlama, raporlama ve operasyonel iş akışlarını otonom sistemlere devrederiz. Bu sayede ekibinizin hata payı sıfıra iner, operasyon maliyetleriniz düşer ve tamamen stratejik büyümeye odaklanabilirsiniz.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item border border-white/[0.05] rounded-2xl overflow-hidden bg-neutral-900/20">
+                    <button class="faq-trigger w-full px-6 py-5 flex justify-between items-center text-left cursor-pointer select-none hover:bg-white/[0.02] transition-colors duration-200">
+                        <span class="text-xs md:text-sm font-semibold pr-6">Tasarım ve yazılım süreçleriniz hazır şablonlar içeriyor mu?</span>
+                        <span class="faq-icon text-[#caff01] text-xl font-light flex-shrink-0">+</span>
+                    </button>
+                    <div class="faq-content">
+                        <p class="px-6 pb-6 text-xs text-neutral-400 font-light leading-relaxed border-t border-white/[0.04] pt-4">
+                            Kesinlikle hayır. Markanızın kimliğine ve DNA'sına uygun, terzi usulü elit web sistemleri ve arayüz deneyimleri geliştiriyoruz. Her proje sıfırdan, en yüksek hız ve SEO performansına göre optimize edilerek yazılır.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item border border-white/[0.05] rounded-2xl overflow-hidden bg-neutral-900/20">
+                    <button class="faq-trigger w-full px-6 py-5 flex justify-between items-center text-left cursor-pointer select-none hover:bg-white/[0.02] transition-colors duration-200">
+                        <span class="text-xs md:text-sm font-semibold pr-6">Kurulan otomasyon sistemlerinin takibi ve bakımı nasıl yapılıyor?</span>
+                        <span class="faq-icon text-[#caff01] text-xl font-light flex-shrink-0">+</span>
+                    </button>
+                    <div class="faq-content">
+                        <p class="px-6 pb-6 text-xs text-neutral-400 font-light leading-relaxed border-t border-white/[0.04] pt-4">
+                            Üretleştirilmiş hizmet modelimiz kapsamında kurduğumuz tüm yapay zeka entegrasyonlarını ve sistem altyapılarını aylık olarak izliyoruz. API güncellemelerini ve sistem optimizasyonlarını sizin yerinize biz yönetiyoruz.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item border border-white/[0.05] rounded-2xl overflow-hidden bg-neutral-900/20">
+                    <button class="faq-trigger w-full px-6 py-5 flex justify-between items-center text-left cursor-pointer select-none hover:bg-white/[0.02] transition-colors duration-200">
+                        <span class="text-xs md:text-sm font-semibold pr-6">Minimum proje bütçeniz nedir?</span>
+                        <span class="faq-icon text-[#caff01] text-xl font-light flex-shrink-0">+</span>
+                    </button>
+                    <div class="faq-content">
+                        <p class="px-6 pb-6 text-xs text-neutral-400 font-light leading-relaxed border-t border-white/[0.04] pt-4">
+                            Her projeyi bağımsız değerlendiriyoruz; sabit bir alt limit belirtmiyoruz. Keşif görüşmemizde ihtiyaçlarınızı dinleyip kapsamı netleştiriyor, ardından size özel bir teklif sunuyoruz.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-white/[0.04] py-8 mt-12">
+        <p class="text-center text-[10px] font-mono tracking-widest text-neutral-600">© 2026 SocialWave. Tüm hakları saklıdır.</p>
+    </footer>
+
+    <script>
+        // FAQ accordion
+        document.querySelectorAll('.faq-trigger').forEach(function(trigger) {
+            trigger.addEventListener('click', function() {
+                var parent = trigger.parentElement;
+                var isOpen = parent.classList.contains('open');
+                document.querySelectorAll('.faq-item').forEach(function(item) {
+                    item.classList.remove('open');
+                });
+                if (!isOpen) parent.classList.add('open');
+            });
+        });
+
+        // Form submit
+        document.getElementById('project-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var btn = this.querySelector('[type="submit"]');
+            btn.textContent = 'Gönderildi ✓';
+            btn.style.background = 'rgba(202,255,1,0.6)';
+            btn.disabled = true;
+        });
+    </script>
+</body>
+</html>
