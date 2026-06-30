@@ -51,6 +51,10 @@
 </head>
 <body class="text-white selection:bg-[#caff01] selection:text-black antialiased overflow-x-hidden">
 
+    <!-- FULL PAGE BACKGROUND -->
+    <div class="fixed inset-0 -z-10 pointer-events-none" style="background: url('web/public/ARKAPLAN.png') center center / cover no-repeat; opacity: 0.13;"></div>
+    <div class="fixed inset-0 -z-10 pointer-events-none" style="background: linear-gradient(180deg, rgba(10,10,12,0.6) 0%, rgba(10,10,12,0.4) 50%, rgba(10,10,12,0.7) 100%);"></div>
+
     <!-- HEADER -->
     <header class="w-full py-5 px-6 md:px-12 border-b border-white/[0.05] flex justify-between items-center bg-[#0A0A0C]/80 backdrop-blur-md sticky top-0 z-50">
         <a href="index.html" class="group text-xs font-bold tracking-[0.15em] uppercase flex items-center gap-2 text-neutral-500 hover:text-white transition-colors duration-200">
@@ -59,24 +63,22 @@
             </svg>
             Ana Sayfaya Dön
         </a>
-        <div class="text-sm font-extrabold tracking-wider">SOCIAL<span style="color:var(--neon)">WAVE</span></div>
+        <img src="web/public/SocialWave.png" alt="SocialWave" class="h-7 w-auto object-contain">
     </header>
 
     <!-- MAIN -->
     <main class="max-w-7xl mx-auto px-6 py-14 md:py-20 space-y-24">
 
         <!-- FORM SECTION -->
-        <section class="relative overflow-hidden rounded-[40px] grid grid-cols-1 lg:grid-cols-12 gap-8 items-start p-6 md:p-10">
-            <div class="absolute inset-0 z-0 pointer-events-none" style="background: url('web/public/ARKAPLAN.png') center center / cover no-repeat; opacity: 0.18;"></div>
-            <div class="absolute inset-0 z-0 pointer-events-none" style="background: linear-gradient(145deg, rgba(10,10,12,0.88) 0%, rgba(10,10,12,0.72) 100%);"></div>
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 
             <!-- LEFT INFO COLUMN -->
             <div class="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 fade-up">
 
                 <div class="sm:col-span-2 lg:col-span-1 p-8 bg-neutral-900/40 border border-white/[0.05] rounded-[32px] space-y-5">
                     <div style="color:var(--neon)">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 3c.132 4.962 4.038 8.868 9 9-.132 4.962-4.038 8.868-9 9-.132-4.962-4.038-8.868-9-9 .132-4.962 4.038-8.868 9-9z"/>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C12.5 7 17 11.5 22 12C17 12.5 12.5 17 12 22C11.5 17 7 12.5 2 12C7 11.5 11.5 7 12 2Z"/>
                         </svg>
                     </div>
                     <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight leading-snug">Geleceği Birlikte<br>İnşa Edelim.</h1>
@@ -177,7 +179,7 @@
                 <div class="faq-item border border-white/[0.05] rounded-2xl overflow-hidden bg-neutral-900/20">
                     <button class="faq-trigger w-full px-6 py-5 flex justify-between items-center text-left cursor-pointer select-none hover:bg-white/[0.02] transition-colors duration-200">
                         <span class="text-xs md:text-sm font-semibold pr-6">IDEAWERKE ekibi kimdir ve markanıza ne katıyoruz?</span>
-                        <span class="faq-icon text-[#caff01] text-xl font-light flex-shrink-0">+</span>
+                        <span class="faq-icon flex-shrink-0" style="color:var(--neon)"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C12.5 7 17 11.5 22 12C17 12.5 12.5 17 12 22C11.5 17 7 12.5 2 12C7 11.5 11.5 7 12 2Z"/></svg></span>
                     </button>
                     <div class="faq-content">
                         <p class="px-6 pb-6 text-xs text-neutral-400 font-light leading-relaxed border-t border-white/[0.04] pt-4">
@@ -189,7 +191,7 @@
                 <div class="faq-item border border-white/[0.05] rounded-2xl overflow-hidden bg-neutral-900/20">
                     <button class="faq-trigger w-full px-6 py-5 flex justify-between items-center text-left cursor-pointer select-none hover:bg-white/[0.02] transition-colors duration-200">
                         <span class="text-xs md:text-sm font-semibold pr-6">Reklam ajansı markama ne katar?</span>
-                        <span class="faq-icon text-[#caff01] text-xl font-light flex-shrink-0">+</span>
+                        <span class="faq-icon flex-shrink-0" style="color:var(--neon)"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C12.5 7 17 11.5 22 12C17 12.5 12.5 17 12 22C11.5 17 7 12.5 2 12C7 11.5 11.5 7 12 2Z"/></svg></span>
                     </button>
                     <div class="faq-content">
                         <p class="px-6 pb-6 text-xs text-neutral-400 font-light leading-relaxed border-t border-white/[0.04] pt-4">
@@ -201,7 +203,7 @@
                 <div class="faq-item border border-white/[0.05] rounded-2xl overflow-hidden bg-neutral-900/20">
                     <button class="faq-trigger w-full px-6 py-5 flex justify-between items-center text-left cursor-pointer select-none hover:bg-white/[0.02] transition-colors duration-200">
                         <span class="text-xs md:text-sm font-semibold pr-6">Ankara reklam ajansı olarak hangi uzmanlıkları sunuyorsunuz?</span>
-                        <span class="faq-icon text-[#caff01] text-xl font-light flex-shrink-0">+</span>
+                        <span class="faq-icon flex-shrink-0" style="color:var(--neon)"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C12.5 7 17 11.5 22 12C17 12.5 12.5 17 12 22C11.5 17 7 12.5 2 12C7 11.5 11.5 7 12 2Z"/></svg></span>
                     </button>
                     <div class="faq-content">
                         <p class="px-6 pb-6 text-xs text-neutral-400 font-light leading-relaxed border-t border-white/[0.04] pt-4">
@@ -213,7 +215,7 @@
                 <div class="faq-item border border-white/[0.05] rounded-2xl overflow-hidden bg-neutral-900/20">
                     <button class="faq-trigger w-full px-6 py-5 flex justify-between items-center text-left cursor-pointer select-none hover:bg-white/[0.02] transition-colors duration-200">
                         <span class="text-xs md:text-sm font-semibold pr-6">Google reklamları (Google Ads) gerçekten hızlı müşteri getirir mi?</span>
-                        <span class="faq-icon text-[#caff01] text-xl font-light flex-shrink-0">+</span>
+                        <span class="faq-icon flex-shrink-0" style="color:var(--neon)"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C12.5 7 17 11.5 22 12C17 12.5 12.5 17 12 22C11.5 17 7 12.5 2 12C7 11.5 11.5 7 12 2Z"/></svg></span>
                     </button>
                     <div class="faq-content">
                         <p class="px-6 pb-6 text-xs text-neutral-400 font-light leading-relaxed border-t border-white/[0.04] pt-4">
@@ -225,7 +227,7 @@
                 <div class="faq-item border border-white/[0.05] rounded-2xl overflow-hidden bg-neutral-900/20">
                     <button class="faq-trigger w-full px-6 py-5 flex justify-between items-center text-left cursor-pointer select-none hover:bg-white/[0.02] transition-colors duration-200">
                         <span class="text-xs md:text-sm font-semibold pr-6">Profesyonel prodüksiyon ve video edit reklam maliyetlerini düşürür mü?</span>
-                        <span class="faq-icon text-[#caff01] text-xl font-light flex-shrink-0">+</span>
+                        <span class="faq-icon flex-shrink-0" style="color:var(--neon)"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C12.5 7 17 11.5 22 12C17 12.5 12.5 17 12 22C11.5 17 7 12.5 2 12C7 11.5 11.5 7 12 2Z"/></svg></span>
                     </button>
                     <div class="faq-content">
                         <p class="px-6 pb-6 text-xs text-neutral-400 font-light leading-relaxed border-t border-white/[0.04] pt-4">
@@ -237,7 +239,7 @@
                 <div class="faq-item border border-white/[0.05] rounded-2xl overflow-hidden bg-neutral-900/20">
                     <button class="faq-trigger w-full px-6 py-5 flex justify-between items-center text-left cursor-pointer select-none hover:bg-white/[0.02] transition-colors duration-200">
                         <span class="text-xs md:text-sm font-semibold pr-6">Ankara'da yerel bir işletme için neden bir ajansla çalışmalıyım?</span>
-                        <span class="faq-icon text-[#caff01] text-xl font-light flex-shrink-0">+</span>
+                        <span class="faq-icon flex-shrink-0" style="color:var(--neon)"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C12.5 7 17 11.5 22 12C17 12.5 12.5 17 12 22C11.5 17 7 12.5 2 12C7 11.5 11.5 7 12 2Z"/></svg></span>
                     </button>
                     <div class="faq-content">
                         <p class="px-6 pb-6 text-xs text-neutral-400 font-light leading-relaxed border-t border-white/[0.04] pt-4">
@@ -249,7 +251,7 @@
                 <div class="faq-item border border-white/[0.05] rounded-2xl overflow-hidden bg-neutral-900/20">
                     <button class="faq-trigger w-full px-6 py-5 flex justify-between items-center text-left cursor-pointer select-none hover:bg-white/[0.02] transition-colors duration-200">
                         <span class="text-xs md:text-sm font-semibold pr-6">Instagram ve Facebook (Meta) reklamlarını her sektör kullanabilir mi?</span>
-                        <span class="faq-icon text-[#caff01] text-xl font-light flex-shrink-0">+</span>
+                        <span class="faq-icon flex-shrink-0" style="color:var(--neon)"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C12.5 7 17 11.5 22 12C17 12.5 12.5 17 12 22C11.5 17 7 12.5 2 12C7 11.5 11.5 7 12 2Z"/></svg></span>
                     </button>
                     <div class="faq-content">
                         <p class="px-6 pb-6 text-xs text-neutral-400 font-light leading-relaxed border-t border-white/[0.04] pt-4">
@@ -261,7 +263,7 @@
                 <div class="faq-item border border-white/[0.05] rounded-2xl overflow-hidden bg-neutral-900/20">
                     <button class="faq-trigger w-full px-6 py-5 flex justify-between items-center text-left cursor-pointer select-none hover:bg-white/[0.02] transition-colors duration-200">
                         <span class="text-xs md:text-sm font-semibold pr-6">Logo tasarımı ve kurumsal kimlik süreci nasıl işliyor?</span>
-                        <span class="faq-icon text-[#caff01] text-xl font-light flex-shrink-0">+</span>
+                        <span class="faq-icon flex-shrink-0" style="color:var(--neon)"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C12.5 7 17 11.5 22 12C17 12.5 12.5 17 12 22C11.5 17 7 12.5 2 12C7 11.5 11.5 7 12 2Z"/></svg></span>
                     </button>
                     <div class="faq-content">
                         <p class="px-6 pb-6 text-xs text-neutral-400 font-light leading-relaxed border-t border-white/[0.04] pt-4">
@@ -273,7 +275,7 @@
                 <div class="faq-item border border-white/[0.05] rounded-2xl overflow-hidden bg-neutral-900/20">
                     <button class="faq-trigger w-full px-6 py-5 flex justify-between items-center text-left cursor-pointer select-none hover:bg-white/[0.02] transition-colors duration-200">
                         <span class="text-xs md:text-sm font-semibold pr-6">360 derece prodüksiyon çekimi neleri kapsıyor?</span>
-                        <span class="faq-icon text-[#caff01] text-xl font-light flex-shrink-0">+</span>
+                        <span class="faq-icon flex-shrink-0" style="color:var(--neon)"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C12.5 7 17 11.5 22 12C17 12.5 12.5 17 12 22C11.5 17 7 12.5 2 12C7 11.5 11.5 7 12 2Z"/></svg></span>
                     </button>
                     <div class="faq-content">
                         <p class="px-6 pb-6 text-xs text-neutral-400 font-light leading-relaxed border-t border-white/[0.04] pt-4">
@@ -285,7 +287,7 @@
                 <div class="faq-item border border-white/[0.05] rounded-2xl overflow-hidden bg-neutral-900/20">
                     <button class="faq-trigger w-full px-6 py-5 flex justify-between items-center text-left cursor-pointer select-none hover:bg-white/[0.02] transition-colors duration-200">
                         <span class="text-xs md:text-sm font-semibold pr-6">Reklam bütçemi nasıl belirlemeliyim?</span>
-                        <span class="faq-icon text-[#caff01] text-xl font-light flex-shrink-0">+</span>
+                        <span class="faq-icon flex-shrink-0" style="color:var(--neon)"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C12.5 7 17 11.5 22 12C17 12.5 12.5 17 12 22C11.5 17 7 12.5 2 12C7 11.5 11.5 7 12 2Z"/></svg></span>
                     </button>
                     <div class="faq-content">
                         <p class="px-6 pb-6 text-xs text-neutral-400 font-light leading-relaxed border-t border-white/[0.04] pt-4">
@@ -297,7 +299,7 @@
                 <div class="faq-item border border-white/[0.05] rounded-2xl overflow-hidden bg-neutral-900/20">
                     <button class="faq-trigger w-full px-6 py-5 flex justify-between items-center text-left cursor-pointer select-none hover:bg-white/[0.02] transition-colors duration-200">
                         <span class="text-xs md:text-sm font-semibold pr-6">Web sitemin Google aramalarında en üstte çıkması için ne yapıyorsunuz?</span>
-                        <span class="faq-icon text-[#caff01] text-xl font-light flex-shrink-0">+</span>
+                        <span class="faq-icon flex-shrink-0" style="color:var(--neon)"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C12.5 7 17 11.5 22 12C17 12.5 12.5 17 12 22C11.5 17 7 12.5 2 12C7 11.5 11.5 7 12 2Z"/></svg></span>
                     </button>
                     <div class="faq-content">
                         <p class="px-6 pb-6 text-xs text-neutral-400 font-light leading-relaxed border-t border-white/[0.04] pt-4">
@@ -309,7 +311,7 @@
                 <div class="faq-item border border-white/[0.05] rounded-2xl overflow-hidden bg-neutral-900/20">
                     <button class="faq-trigger w-full px-6 py-5 flex justify-between items-center text-left cursor-pointer select-none hover:bg-white/[0.02] transition-colors duration-200">
                         <span class="text-xs md:text-sm font-semibold pr-6">Sosyal medya yönetimi ve içerik üretimi satışları etkiler mi?</span>
-                        <span class="faq-icon text-[#caff01] text-xl font-light flex-shrink-0">+</span>
+                        <span class="faq-icon flex-shrink-0" style="color:var(--neon)"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C12.5 7 17 11.5 22 12C17 12.5 12.5 17 12 22C11.5 17 7 12.5 2 12C7 11.5 11.5 7 12 2Z"/></svg></span>
                     </button>
                     <div class="faq-content">
                         <p class="px-6 pb-6 text-xs text-neutral-400 font-light leading-relaxed border-t border-white/[0.04] pt-4">
@@ -321,7 +323,7 @@
                 <div class="faq-item border border-white/[0.05] rounded-2xl overflow-hidden bg-neutral-900/20">
                     <button class="faq-trigger w-full px-6 py-5 flex justify-between items-center text-left cursor-pointer select-none hover:bg-white/[0.02] transition-colors duration-200">
                         <span class="text-xs md:text-sm font-semibold pr-6">Reklam performansımı nasıl takip edebilirim?</span>
-                        <span class="faq-icon text-[#caff01] text-xl font-light flex-shrink-0">+</span>
+                        <span class="faq-icon flex-shrink-0" style="color:var(--neon)"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C12.5 7 17 11.5 22 12C17 12.5 12.5 17 12 22C11.5 17 7 12.5 2 12C7 11.5 11.5 7 12 2Z"/></svg></span>
                     </button>
                     <div class="faq-content">
                         <p class="px-6 pb-6 text-xs text-neutral-400 font-light leading-relaxed border-t border-white/[0.04] pt-4">
